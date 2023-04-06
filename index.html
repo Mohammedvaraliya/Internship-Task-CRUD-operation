@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Student Registration Portal</title>
+  </head>
+  <body>
+    <h1>Student Registration Portal</h1>
+    <form id="create-form">
+      <h2>Create Student</h2>
+      <div>
+        <label for="roll-no">Roll No:</label>
+        <input type="text" id="roll-no" name="rollNo" required />
+      </div>
+      <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required />
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required />
+      </div>
+      <button type="submit">Create</button>
+    </form>
+    <hr />
+    <form id="read-form">
+      <h2>Read Student</h2>
+      <div>
+        <label for="roll-no-read">Roll No:</label>
+        <input type="text" id="roll-no-read" name="rollNo" required />
+      </div>
+      <button type="submit">Read</button>
+    </form>
+    <div id="read-result"></div>
+
+    <script>
+      const createForm = document.querySelector("#create-form");
+      const readForm = document.querySelector("#read-form");
+      const readResult = document.querySelector("#read-result");
+      const url = 'http://localhost:3000';
+
+      createForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+
+        const formData = new FormData(event.target);
+        const responseData = await fetch(`${url}/create_student`, {
+          method: "POST",
+          body: JSON.stringify(Object.fromEntries(formData)),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }).then((response) => response.json());
+
+        alert(responseData.message);
+        createForm.reset();
+      });
+
+      readForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const rollNo = event.target.rollNo.value;
+        const responseData = await fetch(`${url}/read_student?rollNo=${rollNo}`).then(
+          (response) => response.json()
+        );
+
+        if (responseData.body) {
+          readResult.textContent = `Name: ${responseData.body.name}, Roll No: ${responseData.body.rollNo}, Password: ${responseData.body.password}`;
+        } else {
+          readResult.textContent = responseData.message;
+        }
+      });
+    </script>
+  </body>
+</html>
