@@ -1,4 +1,6 @@
 const express = require('express');
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const connectToMongo = require('./db');
@@ -25,7 +27,7 @@ app.post('/create_student', async (req, res) => {
             return res.status(400).json({ message: 'Missing required fields' });
         }
 
-        const existingStudent = await Student.findOne({ rollNo }).maxTimeMS(120000);
+        const existingStudent = await Student.findOne({ rollNo }).maxTimeMS(10000);
         if (existingStudent) {
             return res.status(409).json({ message: 'A student with the same rollNo already exists' });
         }

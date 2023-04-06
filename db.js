@@ -1,22 +1,4 @@
-// const mongoose = require('mongoose');
-
-// const server = '127.0.0.1:27017';
-// const database = 'MongoNodeProject';
-
-// const mongoURI = `mongodb://${server}/${database}?directConnection=true&readPreference=primary`;
-
-// const connectToMongo = async () => {
-//   try {
-//     await mongoose.connect(mongoURI);
-//     console.log('Connected to MongoDB successfully');
-//   } catch (error) {
-//     console.log('Failed to connect to MongoDB', error);
-//   }
-// };
-
-// module.exports = connectToMongo;
-
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const mongoose = require('mongoose');
 
 const username = 'admin';
 const password = 'admin';
@@ -25,15 +7,21 @@ const databaseName = 'MongoNodeProject';
 
 const mongoURI = `mongodb+srv://${username}:${password}@${clusterName}.54kc2ka.mongodb.net/${databaseName}?retryWrites=true&w=majority`;
 
-const client = new MongoClient(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-
 const connectToMongo = async () => {
   try {
-    await client.connect();
+    const mongooseOptions = {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 5000,
+    };
+    const mongooseConnection = await mongoose.connect(mongoURI, mongooseOptions);
     console.log('Connected to MongoDB Atlas successfully');
+    return mongooseConnection;
   } catch (error) {
     console.log('Failed to connect to MongoDB Atlas', error);
+    process.exit(1);
   }
 };
 
 module.exports = connectToMongo;
+
