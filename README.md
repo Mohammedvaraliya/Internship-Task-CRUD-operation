@@ -122,3 +122,25 @@ If an error occurs, the server will respond with an error message in JSON format
 * 404 Not Found: The student record was not found.
 * 409 Conflict: A student with the same rollNo already exists.
 * 500 Internal Server Error: An internal server error occurred.
+
+### Overview
+
+#### CREATE
+
+![create](https://user-images.githubusercontent.com/95087498/230554983-ec84a76d-6b99-4c41-8b33-4e932a9b6b22.png)
+
+#### READ
+
+![read](https://user-images.githubusercontent.com/95087498/230555237-da00528a-5074-48da-b176-42dcc7ada6c4.png)
+
+#### UPDATE
+
+![update1](https://user-images.githubusercontent.com/95087498/230555430-a7319e3a-4514-4562-971a-3d6a3df7bb37.png)
+
+![update2](https://user-images.githubusercontent.com/95087498/230555551-ef4e77d0-4570-40f4-8eff-85c002d506f7.png)
+
+#### DELETE
+
+![delete](https://user-images.githubusercontent.com/95087498/230555978-7e6d9af0-da3d-4f0e-9f85-aa980bb61cba.png)
+
+![delete2](https://user-images.githubusercontent.com/95087498/230556124-277d03c2-3bce-49cb-ada8-8a5ec8573a39.png)
